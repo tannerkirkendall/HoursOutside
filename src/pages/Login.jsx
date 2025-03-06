@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+import { postLogin } from "../services/api";
+
 function Login(){
+    
+    useEffect(() => {
+        const loadLogin = async () => await postLogin();
+    
+        loadLogin();
+      }, []);
+
     return (
     
     <div className="login">
