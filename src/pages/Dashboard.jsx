@@ -1,11 +1,24 @@
 import { useState, useEffect } from "react";
 import { getActivities } from "../services/api";
+import ActivityCard from "../components/ActivityCard/ActivityCard";
+import ActivityModal from "../components/ActivityModal/ActivityModal"
 
 function Dashboard(){
 
     const [activities, setActivities] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [openActivity, setOpenActivity] = useState({});
+    const [currentActivity, setCurrentActivity] = useState({});
+
+    const openModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsModalOpen(false);
+    };
 
     useEffect(() => {
         
@@ -13,8 +26,10 @@ function Dashboard(){
             setLoading(true);
             try {
                 var a = await getActivities();
-                console.log(a.id);
                 setActivities(a.id);
+                if (a.id[0]!==null && a.id[0].end_time !== null){
+                    setCurrentActivity(a.id[0])
+                }
             } catch (err) {
                 setError("Failed to load activities...");
             } finally {
@@ -27,21 +42,25 @@ function Dashboard(){
 
     return (
     
-    <div className="login">
+    <div className="dashboard">
         <h2>Start tracking your hours here</h2>
-
+        {<div>Current Activity {currentActivity.end_time}</div>}
+        <button onClick={() => {
+            setOpenActivity({})
+            openModal()
+        }}>Start</button>
         {loading && <div>Loading</div>}
-
         {error && <div className="error-message">{error}</div>}
+
+        <ActivityModal isOpen={isModalOpen} onClose={closeModal} activity={openActivity} />
 
         <div>
             {activities.map((activity, index) => (
-                <div key={index}>
-                    <span>Start Time: {activity.start_time}</span> <br/>
-                    <span>End Time: {activity.end_time}</span> <br/>
-                    <span>Description: {activity.description}</span> <br/>
-                    <span>Activity Id: {activity.id}</span> <br/>
-                    <span>User Id: {activity.user_id}</span>
+                <div onClick={() => {
+                    setOpenActivity(activity)
+                    openModal()
+                }} key={index}>
+                    <ActivityCard activity={activity} />
                 </div>
             ))}
         </div>

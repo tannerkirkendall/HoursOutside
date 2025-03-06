@@ -4,15 +4,15 @@ export const postSignup = async () => {
     
 }
 
-export const postLogin = async () => {
+export const postLogin = async (email, password) => {
     
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     
     const raw = JSON.stringify({
       "user": {
-        "email": "test@test.com",
-        "password": "password"
+        "email": email,
+        "password": password
       }
     });
     
@@ -22,7 +22,7 @@ export const postLogin = async () => {
       body: raw
     };
     
-    fetch("https://starfish-app-xaufy.ondigitalocean.app/login", requestOptions)
+    fetch(`${BASE_URL}/login`, requestOptions)
       .then((response) => {
         setCookie('auth', response.headers.get('authorization'), 1)
     })
@@ -46,6 +46,7 @@ export const getActivities = async () => {
 
     const response = await fetch(`${BASE_URL}/tracker`, options);
     const data = await response.json();
+    data.id.sort((a, b) => (a.end_time < b.end_time) ? 1 : -1)
     return data;
    
 }
