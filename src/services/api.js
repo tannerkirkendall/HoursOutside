@@ -39,7 +39,7 @@ export const getActivities = async () => {
     };
     
       const options = {
-        method: 'GET', // or POST, PUT, DELETE, etc.
+        method: 'GET',
         headers: headers
       };
     
@@ -49,6 +49,35 @@ export const getActivities = async () => {
     data.id.sort((a, b) => (a.end_time < b.end_time) ? 1 : -1)
     return data;
    
+}
+
+export const patchActivities = async (start_time, end_time, description, id) => {
+  const cookie = getCookie('auth');
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", cookie);
+  
+  console.log("startTime", start_time)
+  console.log("endTIme", end_time)
+  console.log("description", description)
+  console.log("id", id)
+
+  const raw = JSON.stringify({
+    "start_time": start_time,
+    "end_time": end_time,
+    "description": description
+  });
+  
+  const requestOptions = {
+    method: "PATCH",
+    headers: myHeaders,
+    body: raw
+  };
+  
+  fetch(`${BASE_URL}/tracker/${id}`, requestOptions)
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));
 }
 
     function setCookie(name,value,days) {
