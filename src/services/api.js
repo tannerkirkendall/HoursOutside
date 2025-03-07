@@ -34,8 +34,8 @@ export const getActivities = async () => {
     
     const cookie = getCookie('auth');
     const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': cookie
+      'Content-Type': 'application/json',
+      'Authorization': cookie
     };
     
       const options = {
@@ -43,12 +43,36 @@ export const getActivities = async () => {
         headers: headers
       };
     
-
     const response = await fetch(`${BASE_URL}/tracker`, options);
     const data = await response.json();
-    data.id.sort((a, b) => (a.end_time < b.end_time) ? 1 : -1)
+    data.id.sort((a, b) => (a.start_time < b.start_time) ? 1 : -1)
     return data;
-   
+}
+
+export const postActivities = async(startTime) => {
+  const cookie = getCookie('auth');
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
+  myHeaders.append("Authorization", cookie);
+  
+  const raw = JSON.stringify({
+    "start_time": startTime
+  });
+  
+  const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+  };
+  
+  try {
+      const response = await fetch("https://starfish-app-xaufy.ondigitalocean.app/tracker", requestOptions);
+      const result = await response.text();
+      console.log(result)
+  } catch (error) {
+      console.error(error);
+  };
 }
 
 export const patchActivities = async (start_time, end_time, description, id) => {
@@ -74,7 +98,7 @@ export const patchActivities = async (start_time, end_time, description, id) => 
     body: raw
   };
   
-  fetch(`${BASE_URL}/tracker/${id}`, requestOptions)
+  await fetch(`${BASE_URL}/tracker/${id}`, requestOptions)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { getActivities } from "../services/api";
+import { postActivities, getActivities, patchActivities } from "../services/api";
 import ActivityCard from "../components/ActivityCard/ActivityCard";
 import ActivityModal from "../components/ActivityModal/ActivityModal"
+
 
 function Dashboard(){
 
@@ -22,15 +23,29 @@ function Dashboard(){
         setIsModalOpen(false);
     };
 
-    useEffect(() => {
+    const stopActivity = async (e) => {
         
+        console.log("end_time", currentActivity.end_time )
+        console.log("id", currentActivity.id )
+
+        const now = new Date().toUTCString();
+        if (currentActivity.end_time === undefined || currentActivity.end_time === null){
+            await patchActivities(null, now, null, currentActivity.id)
+        } else {
+            await postActivities(now)
+        }
+        
+        setRefresh(true)
+    }
+
+    useEffect(() => {
         const loadActivities = async () => {
             setLoading(true);
             try {
                 var a = await getActivities();
                 setActivities(a.id);
 
-                if (a.id[0]!==null && a.id[0].end_time !== null)
+                if (a.id[0]!==undefined && a.id[0].end_time !== undefined)
                 {
                     setCurrentActivity(a.id[0])
                 }
@@ -49,7 +64,10 @@ function Dashboard(){
     return (
         <div className="dashboard">
             <h2>Start tracking your hours here</h2>
-            {<div>Current Activity {currentActivity.end_time}</div>}
+            {/* <span className="material-symbols-outlined">play_arrow</span> */}
+
+            <button onClick={stopActivity}>{(currentActivity.end_time === undefined || currentActivity.end_time === null) ? 'Stop' : 'Start'}</button>
+            {<div>Current Activity: {currentActivity.id}</div>}
             {<div>Loading: {loading ? 'Active' : 'Inactive'}</div>}
             {error && <div className="error-message">{error}</div>}
 
