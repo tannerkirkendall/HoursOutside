@@ -1,3 +1,4 @@
+import "./Dashboard.css"
 import { useState, useEffect } from "react";
 import { postActivities, getActivities, patchActivities } from "../services/api";
 import ActivityCard from "../components/ActivityCard/ActivityCard";

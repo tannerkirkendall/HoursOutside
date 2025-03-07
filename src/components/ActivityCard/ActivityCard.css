@@ -1,6 +1,16 @@
 .main {
-    border: 2px solid rgb(73, 73, 73);
+    /* border: 1px solid rgb(73, 73, 73); */
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 5px;
     margin-bottom: 5px;
+    background-color: rgb(243, 243, 243);
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 25,
+  'opsz' 48
 }
