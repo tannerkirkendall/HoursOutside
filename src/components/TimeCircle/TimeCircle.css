@@ -1,7 +1,7 @@
 .outerCircle {
-    border-radius: 50%;
-    height: 75px;
-    width: 75px;
+    border-radius: 45%;
+    height: 80px;
+    width: 80px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -12,6 +12,6 @@
   .timeSpan {
     /* width: 30%; */
     height: 40%;
-    font-weight: 200;
+    font-weight: 400;
   }
 

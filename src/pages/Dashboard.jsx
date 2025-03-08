@@ -64,11 +64,11 @@ function Dashboard(){
             <ActivityModal isOpen={isModalOpen} onClose={closeModal} activity={openActivity} />
             
             <div className="top">
-                <h2>Start tracking your hours here</h2>
-                <button onClick={stopActivity}>{(currentActivity.end_time === undefined || currentActivity.end_time === null) ? 'Stop' : 'Start'}</button>
+                <span>Start tracking your hours here</span>
                 {<div>Current Activity: {currentActivity.id}</div>}
                 {<div>Loading: {loading ? 'Active' : 'Inactive'}</div>}
                 {error && <div className="error-message">{error}</div>}
+                <button onClick={stopActivity}>{(currentActivity.end_time === undefined || currentActivity.end_time === null) ? 'Stop' : 'Start'}</button>
 
             </div>
 

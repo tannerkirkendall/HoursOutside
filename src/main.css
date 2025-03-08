@@ -13,6 +13,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border: 3px solid #73AD21;
+  background-color: white;
+}
 
 a {
   font-weight: 500;

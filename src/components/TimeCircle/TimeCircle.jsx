@@ -4,7 +4,7 @@ import { useState } from "react";
 function Circle({timeSpan, complete}) {
 
     const divStyle = {
-        border: complete ? '15px solid rgb(126, 255, 122)' : '15px solid rgb(255, 213, 122)' 
+        border: complete ? '13px solid rgb(126, 255, 122)' : '13px solid rgb(255, 213, 122)' 
       };
 
     return (
