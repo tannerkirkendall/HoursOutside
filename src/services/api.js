@@ -69,7 +69,6 @@ export const postActivities = async(startTime) => {
   try {
       const response = await fetch("https://starfish-app-xaufy.ondigitalocean.app/tracker", requestOptions);
       const result = await response.text();
-      console.log(result)
   } catch (error) {
       console.error(error);
   };
@@ -81,10 +80,7 @@ export const patchActivities = async (start_time, end_time, description, id) => 
   myHeaders.append("Content-Type", "application/json");
   myHeaders.append("Authorization", cookie);
   
-  console.log("startTime", start_time)
-  console.log("endTIme", end_time)
-  console.log("description", description)
-  console.log("id", id)
+
 
   const raw = JSON.stringify({
     "start_time": start_time,
