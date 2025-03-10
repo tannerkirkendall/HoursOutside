@@ -1,0 +1,29 @@
+.startStop{
+
+}
+
+.outer{
+    display: flex;
+    flex-direction: column;
+    align-content: stretch;
+} 
+
+.flex-item{
+    flex: 1;
+    text-align: right;
+}
+
+
+.topStripe{
+    background-color: #4BB8B3;
+
+    
+}
+
+.middleStripe{
+    background-color: #269FA2;
+}
+
+.bottomStripe{
+    background-color: #156D83;
+}

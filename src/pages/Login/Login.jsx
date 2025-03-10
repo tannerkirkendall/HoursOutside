@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { postLogin } from "../services/api";
+import { postLogin } from "../../services/api";
 
 function Login(){
     
     useEffect(() => {
-        const loadLogin = async () => await postLogin("test@test.com", "password");
+        const loadLogin = async () => await postLogin("test1@test1.com", "password");
     
         loadLogin();
       }, []);

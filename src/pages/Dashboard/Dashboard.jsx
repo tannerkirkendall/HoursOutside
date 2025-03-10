@@ -1,15 +1,16 @@
 import "./Dashboard.css"
 import { useState, useEffect } from "react";
-import { postActivities, getActivities, patchActivities } from "../services/api";
-import ActivityCard from "../components/ActivityCard/ActivityCard";
-import ActivityModal from "../components/ActivityModal/ActivityModal";
+import { postActivities, getActivities, patchActivities } from "../../services/api";
+import ActivityCard from "../../components/ActivityCard/ActivityCard";
+import ActivityModal from "../../components/ActivityModal/ActivityModal";
+import ActivityButton from "../../components/ActivityButton/ActivityButton";
 
 
 function Dashboard(){
 
     const [activities, setActivities] = useState([]);
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [openActivity, setOpenActivity] = useState({});
@@ -27,7 +28,7 @@ function Dashboard(){
     const stopActivity = async (e) => {
 
         const now = new Date().toUTCString();
-        if (currentActivity.end_time === undefined || currentActivity.end_time === null){
+        if (currentActivity.end_time === null){
             await patchActivities(null, now, null, currentActivity.id)
         } else {
             await postActivities(now)
@@ -35,6 +36,10 @@ function Dashboard(){
         
         setRefresh(true)
     }
+
+    const loadingStyle = {
+        'background-color': loading ? ' #2baf90' : ' #f1a512' 
+      };
 
     useEffect(() => {
         const loadActivities = async () => {
@@ -62,18 +67,52 @@ function Dashboard(){
     return (
         <div className="dashboard">
             <ActivityModal isOpen={isModalOpen} onClose={closeModal} activity={openActivity} />
-            
             <div className="top">
-                <span>Start tracking your hours here</span>
-                {<div>Current Activity: {currentActivity.id}</div>}
-                {<div>Loading: {loading ? 'Active' : 'Inactive'}</div>}
-                {error && <div className="error-message">{error}</div>}
-                <button onClick={stopActivity}>{(currentActivity.end_time === undefined || currentActivity.end_time === null) ? 'Stop' : 'Start'}</button>
+                
+                <div className="statCols topLeft">
+                    <div className="statRows tl-top">
+                        <span className="statDesc">Today:</span> 
+                        <br/>
+                        <span className="statValue">4h 15m</span>
+                    </div>
+
+                    <div className="statRows tl-bottom">
+                        <span className="statDesc">This Week:</span>
+                        <br/>
+                        <span className="statValue">14h 32m</span>
+                    </div>
+
+                </div>
+                
+                <div className="statCols topMiddle">
+                    <ActivityButton loading={loading} currentActivity={currentActivity} onButtonClick={stopActivity} />
+                    
+                    
+                </div>
+
+                <div className="statCols topRight">
+                    <div className="statRows tl-top">
+                        <span className="statDesc">This Month:</span>
+                        <br/>
+                        <span className="statValue">54h 9m</span>
+                    </div>
+
+                    <div className="statRows tl-bottom">
+                        <span className="statDesc">This Year:</span>
+                        <br/>
+                        <span className="statValue">154h 45m</span>
+                    </div>
+                </div>
+
+                {/* {<div>Current Activity: {currentActivity.id}</div>}
+                {/* {error && <div className="error-message">{error}</div>} */}
 
             </div>
 
-            <div className="feed">
+            <div className="feed" >
 
+     
+                
 
                 <div>
                     {activities.map((activity, index) => (

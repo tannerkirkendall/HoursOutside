@@ -1,7 +1,7 @@
-function Stats(){
+function About(){
     return (
     
-    <div className="stats">
+    <div className="about">
         <h2>You are doing great</h2>
 
         
@@ -9,4 +9,4 @@ function Stats(){
     );
 }
 
-export default Stats;
+export default About;

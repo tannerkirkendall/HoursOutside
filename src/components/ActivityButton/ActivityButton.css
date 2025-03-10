@@ -1,0 +1,41 @@
+button {
+
+  }
+
+  .material-icons.md-48 { font-size: 48px; }
+
+ .start {
+    border-radius: 55px;
+    height: 110px;
+    width: 110px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #7db4a7;
+    border: 10px solid #08b88f;
+  }
+
+  .stop {
+    border-radius: 55px;
+    height: 110px;
+    width: 110px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f03016;
+    border: 10px solid #ee6a59;
+  }
+
+  .loading {
+    border-radius: 55px;
+    height: 110px;
+    width: 110px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f1c469;
+    border: 10px solid #f1a512;
+  }

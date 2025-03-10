@@ -7,11 +7,28 @@
     top: 0;
     left: 0;
     width: 100%;
-    /* border: 3px solid #73AD21; */
     background-color: white;
 }
 
 .innerBar {
     margin: auto;
     max-width: 900px;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
+
+.nav-link {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    color: #e4896d;
+
+    transition: color 0.2s;
+  }
+
+  .nav-link:hover {
+    color: #DD4111;
+  }
