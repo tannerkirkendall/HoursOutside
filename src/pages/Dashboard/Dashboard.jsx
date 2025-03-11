@@ -52,20 +52,21 @@ function Dashboard(){
             var et = luxon.DateTime.fromISO(e.end_time);
             
             if (et.c !== null){
+                var seconds = et.diff(st, 'seconds').toObject().seconds;
                 if (st >= day) {
-                    daySeconds += et.diff(st, 'seconds').toObject().seconds;
+                    daySeconds += seconds;
                 }
     
                 if (st >= week) {
-                    weekSeconds += et.diff(st, 'seconds').toObject().seconds;
+                    weekSeconds += seconds;
                 }
     
                 if (st >= month) {
-                    monthSeconds += et.diff(st, 'seconds').toObject().seconds;
+                    monthSeconds += seconds;
                 }
     
                 if (st >= year) {
-                    yearSeconds += et.diff(st, 'seconds').toObject().seconds;
+                    yearSeconds += seconds;
                 } 
             }
 
