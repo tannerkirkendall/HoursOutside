@@ -12,10 +12,8 @@ const Modal = ({ isOpen, onClose, activity }) => {
   const [endTime, setEndTime] = useState(formatDate(activity.end_time));
   const [description, setDescription] = useState(activity.description);
 
-
-
   function formatDate(date){
-    if (date === null) return null;
+    if (date === null) return "";
     const dte = luxon.DateTime.fromISO(date).toFormat("yyyy-MM-dd'T'HH:mm");
     return dte;
   }
@@ -25,11 +23,9 @@ const Modal = ({ isOpen, onClose, activity }) => {
     try {
             var utcStartTime = luxon.DateTime.fromISO(startTime)
             var utcEndTime = luxon.DateTime.fromISO(endTime)
-            // console.log("utcStartTime", utcStartTime);
             var a = await patchActivities(utcStartTime, utcEndTime, description, activity.id);
         } catch (err) {
         console.log(err)
-            // setError("Failed to load activities...");
         } finally {
             onClose()
         }

@@ -1,29 +1,56 @@
-.startStop{
 
-}
-
-.outer{
+.top{
     display: flex;
+    flex-direction: row;
+    overflow:hidden;
+    justify-content: space-between;
+    border-bottom: 3px solid black;
+
+  }
+
+  .statCols{
+    width: 33.33%;
+    display: flex;
+    overflow:hidden;
     flex-direction: column;
-    align-content: stretch;
-} 
+    justify-content: space-between;
+  }
 
-.flex-item{
-    flex: 1;
-    text-align: right;
-}
+  .statRows{
+    height: 50%;
+    padding-left: 5px;
+  }
 
+  .statDesc{
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: Block;
+    font-size: 1.4em;
+  }
 
-.topStripe{
-    background-color: #4BB8B3;
+  .statValue{
+    font-family: "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: Light;
+    font-size: 1.4em;
+  }
 
-    
-}
+  .topMiddle{
+    background-color: rgb(255, 255, 255);
+    padding: 15px;
+  }
 
-.middleStripe{
-    background-color: #269FA2;
-}
+  .tl-top {
+    border-bottom: 3px solid black;
+    overflow:hidden;
 
-.bottomStripe{
-    background-color: #156D83;
-}
+  }
+
+  .tr-top {
+    border-bottom: 3px solid black;
+    overflow:hidden;
+
+  }
+

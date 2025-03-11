@@ -1,91 +1,33 @@
 .dashboard{
-    /* background-color: rgb(221, 221, 221); */
-    
-    /* padding: 10px;
-    margin-top: 10px;  */
-    /* padding-top: 40px; */
     margin: auto;
     max-width: 900px;
     min-width: 450px;
 }
 
 .top{
-    /* background-color: #7db4a7; */
     height: 15vh;
+    width: 100%;
     overflow: scroll;
-    padding: 2px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
   }
 
-  .statCols{
-    width: 33.33%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  .feed{
+    height: 80vh;
+    overflow: scroll;
+
   }
 
-  .statRows{
-    height: 50%;
-    padding-left: 5px;
-    border-bottom: 3px solid black;
-  }
-
-  .statDesc{
+  .noActivities{
     font-family: "DM Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 900;
     font-style: Block;
     font-size: 1.4em;
-  }
-
-  .statValue{
-    font-family: "DM Sans", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 200;
-    font-style: Light;
-    font-size: 1.4em;
-  }
-
-
-
-  .loading{
-    height: 100vh;
-  }
-
-  /* .topLeft{
-    background-color: rgb(255, 255, 255);
-  } */
-
-  .topMiddle{
-    background-color: rgb(255, 255, 255);
-    padding: 15px;
-    border-bottom: 3px solid black;
-
-  }
-
-  /* .topRight{
-    background-color: azure;
-  } */
-
-  .tl-top{
-    background-color:rgb(255, 255, 255);
-  }
-
-  .tl-bottom {
-    background-color: rgb(255, 255, 255);
-  }
-
-  .feed{
-    /* background-color: salmon; */
-    height: 75vh;
-    overflow: scroll;
-    
+    padding-top: 100px;
+    text-align: center;
   }
   
   ::-webkit-scrollbar {
-      display: none;
+      display:none;
   }
   
   

@@ -1,39 +1,42 @@
 import './StatusBar.css'
+import ActivityButton from "../../components/ActivityButton/ActivityButton";
 
-function StatusBar(){
+function StatusBar({loading, currentActivity, stopActivity}){
 
-    return(
-        <div className="outer">
-            <div className="startStop">
-                Start
+    return( 
+        <div className="top">
+            <div className="statCols topLeft">
+                <div className="statRows tl-top">
+                    <span className="statDesc">Today:</span> 
+                    <br/>
+                    <span className="statValue">4h 15m</span>
+                </div>
+
+                <div className="statRows tl-bottom">
+                    <span className="statDesc">This Week:</span>
+                    <br/>
+                    <span className="statValue">14h 32m</span>
+                </div>
+
+            </div>
+            
+            <div className="statCols topMiddle">
+                <ActivityButton loading={loading} currentActivity={currentActivity} onButtonClick={stopActivity} />
             </div>
 
-            <div className="flex-item topStripe">
-                <div className="timeTitle">
-                    <span>This Week</span>
+            <div className="statCols topRight">
+                <div className="statRows tr-top">
+                    <span className="statDesc">This Month:</span>
+                    <br/>
+                    <span className="statValue">54h 9m</span>
                 </div>
-                <div className="timeTotal">
-                    <span>14 Hours 12 Minutes</span>
+
+                <div className="statRows tl-bottom">
+                    <span className="statDesc">This Year:</span>
+                    <br/>
+                    <span className="statValue">154h 45m</span>
                 </div>
             </div>
-
-            <div className="flex-item middleStripe">
-                <div className="timeTitle">
-                        <span>This Month</span>
-                    </div>
-                    <div className="timeTotal">
-                        <span>14 Hours 12 Minutes</span>
-                </div>
-            </div>
-
-            <div className="flex-item bottomStripe">
-                <div className="timeTitle">
-                        <span>This Year</span>
-                    </div>
-                    <div className="timeTotal">
-                        <span>720 Hours 12 Minutes</span>
-                </div>
-        </div>
         </div>
     )
 

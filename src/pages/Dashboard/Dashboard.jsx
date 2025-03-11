@@ -3,15 +3,13 @@ import { useState, useEffect } from "react";
 import { postActivities, getActivities, patchActivities } from "../../services/api";
 import ActivityCard from "../../components/ActivityCard/ActivityCard";
 import ActivityModal from "../../components/ActivityModal/ActivityModal";
-import ActivityButton from "../../components/ActivityButton/ActivityButton";
-
+import StatusBar from "../../components/StatusBar/StatusBar";
 
 function Dashboard(){
 
     const [activities, setActivities] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [refresh, setRefresh] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [openActivity, setOpenActivity] = useState({});
     const [currentActivity, setCurrentActivity] = useState({});
@@ -21,47 +19,43 @@ function Dashboard(){
     };
   
     const closeModal = () => {
-        setRefresh(true)
+        loadActivities();
         setIsModalOpen(false);
     };
 
     const stopActivity = async (e) => {
-
+        setLoading(true);
         const now = new Date().toUTCString();
         if (currentActivity.end_time === null){
             await patchActivities(null, now, null, currentActivity.id)
         } else {
             await postActivities(now)
         }
-        
-        setRefresh(true)
+
+        loadActivities();  
     }
 
-    const loadingStyle = {
-        'background-color': loading ? ' #2baf90' : ' #f1a512' 
-      };
+    const loadActivities = async () => {
+        setLoading(true);
+        try {
+            var a = await getActivities();
+            setActivities(a.id);
+
+            if (a.id[0]!==undefined && a.id[0].end_time !== undefined)
+            {
+                setCurrentActivity(a.id[0])
+            }
+
+        } catch (err) {
+            setError("Failed to load activities...");
+        } finally {
+            setLoading(false)
+        }
+    }
 
     useEffect(() => {
-        const loadActivities = async () => {
-            setLoading(true);
-            try {
-                var a = await getActivities();
-                setActivities(a.id);
-
-                if (a.id[0]!==undefined && a.id[0].end_time !== undefined)
-                {
-                    setCurrentActivity(a.id[0])
-                }
-
-            } catch (err) {
-                setError("Failed to load activities...");
-            } finally {
-                setLoading(false);
-                setRefresh(false)
-            }
-        }
         loadActivities();
-      }, [refresh]);
+    }, []);
     
 
     return (
@@ -69,51 +63,14 @@ function Dashboard(){
             <ActivityModal isOpen={isModalOpen} onClose={closeModal} activity={openActivity} />
             <div className="top">
                 
-                <div className="statCols topLeft">
-                    <div className="statRows tl-top">
-                        <span className="statDesc">Today:</span> 
-                        <br/>
-                        <span className="statValue">4h 15m</span>
-                    </div>
-
-                    <div className="statRows tl-bottom">
-                        <span className="statDesc">This Week:</span>
-                        <br/>
-                        <span className="statValue">14h 32m</span>
-                    </div>
-
-                </div>
-                
-                <div className="statCols topMiddle">
-                    <ActivityButton loading={loading} currentActivity={currentActivity} onButtonClick={stopActivity} />
-                    
-                    
-                </div>
-
-                <div className="statCols topRight">
-                    <div className="statRows tl-top">
-                        <span className="statDesc">This Month:</span>
-                        <br/>
-                        <span className="statValue">54h 9m</span>
-                    </div>
-
-                    <div className="statRows tl-bottom">
-                        <span className="statDesc">This Year:</span>
-                        <br/>
-                        <span className="statValue">154h 45m</span>
-                    </div>
-                </div>
-
-                {/* {<div>Current Activity: {currentActivity.id}</div>}
-                {/* {error && <div className="error-message">{error}</div>} */}
+            <StatusBar loading={loading} currentActivity={currentActivity} stopActivity={stopActivity}/>
 
             </div>
 
             <div className="feed" >
-
-     
                 
-
+                {activities.length === 0 && <div className="noActivities">Click Play To Start Your First Activity</div>}
+                
                 <div>
                     {activities.map((activity, index) => (
                         <div onClick={() => {
@@ -126,9 +83,6 @@ function Dashboard(){
                 </div>
 
             </div>
-
-
-
         </div>
     );
 }

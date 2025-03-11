@@ -4,7 +4,7 @@ import { postLogin } from "../../services/api";
 function Login(){
     
     useEffect(() => {
-        const loadLogin = async () => await postLogin("test1@test1.com", "password");
+        const loadLogin = async () => await postLogin("test3@test1.com", "password");
     
         loadLogin();
       }, []);
