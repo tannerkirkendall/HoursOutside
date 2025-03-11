@@ -2,18 +2,20 @@
     margin: auto;
     max-width: 900px;
     min-width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
 .top{
     padding-top: 5px;
-    height: 20vh;
+    height: 20dvh;
     width: 100%;
   }
 
   .feed{
-    height: 85vh;
+    height: 75dvh;
     overflow: scroll;
-
+    width: 100%;
   }
 
   .noActivities{

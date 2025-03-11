@@ -2,6 +2,8 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  height: 100vh;
+  overflow: hidden;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -14,9 +16,12 @@
 }
 
 .navMaster{
-  height: 4vh;
+  height: 5dvh;
 }
 
+.bodyMaster {
+  height: 95dvh;
+}
 
 
 a {
