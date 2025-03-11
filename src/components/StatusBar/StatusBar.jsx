@@ -1,7 +1,7 @@
 import './StatusBar.css'
 import ActivityButton from "../../components/ActivityButton/ActivityButton";
 
-function StatusBar({loading, currentActivity, stopActivity}){
+function StatusBar({loading, currentActivity, stopActivity, statTimes}){
 
     return( 
         <div className="top">
@@ -9,13 +9,13 @@ function StatusBar({loading, currentActivity, stopActivity}){
                 <div className="statRows tl-top">
                     <span className="statDesc">Today:</span> 
                     <br/>
-                    <span className="statValue">4h 15m</span>
+                    <span className="statValue">{statTimes?.day?.hours ?? 0}h {statTimes?.day?.minutes ?? 0}m</span>
                 </div>
 
                 <div className="statRows tl-bottom">
                     <span className="statDesc">This Week:</span>
                     <br/>
-                    <span className="statValue">14h 32m</span>
+                    <span className="statValue">{statTimes?.week?.hours ?? 0}h {statTimes?.week?.minutes ?? 0}m</span>
                 </div>
 
             </div>
@@ -28,13 +28,13 @@ function StatusBar({loading, currentActivity, stopActivity}){
                 <div className="statRows tr-top">
                     <span className="statDesc">This Month:</span>
                     <br/>
-                    <span className="statValue">54h 9m</span>
+                    <span className="statValue">{statTimes?.month?.hours ?? 0}h {statTimes?.month?.minutes ?? 0}m</span>
                 </div>
 
                 <div className="statRows tl-bottom">
                     <span className="statDesc">This Year:</span>
                     <br/>
-                    <span className="statValue">154h 45m</span>
+                    <span className="statValue">{statTimes?.year?.hours ?? 0}h {statTimes?.year?.minutes ?? 0}m</span>
                 </div>
             </div>
         </div>

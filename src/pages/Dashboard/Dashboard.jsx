@@ -13,6 +13,7 @@ function Dashboard(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [openActivity, setOpenActivity] = useState({});
     const [currentActivity, setCurrentActivity] = useState({});
+    const [statTimes, setStatTimes] = useState({});
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -31,9 +32,64 @@ function Dashboard(){
         } else {
             await postActivities(now)
         }
-
         loadActivities();  
     }
+
+    const calcToday = (a) => {
+        var day = luxon.DateTime.now().startOf('day');
+        var week = luxon.DateTime.now().startOf('week');
+        var month = luxon.DateTime.now().startOf('month');
+        var year = luxon.DateTime.now().startOf('year');
+
+        var daySeconds = 0;
+        var weekSeconds = 0;
+        var monthSeconds = 0;
+        var yearSeconds = 0;
+
+        a.forEach(e =>{
+
+            var st = luxon.DateTime.fromISO(e.start_time);
+            var et = luxon.DateTime.fromISO(e.end_time);
+            
+            if (et.c !== null){
+                if (st >= day) {
+                    daySeconds += et.diff(st, 'seconds').toObject().seconds;
+                }
+    
+                if (st >= week) {
+                    weekSeconds += et.diff(st, 'seconds').toObject().seconds;
+                }
+    
+                if (st >= month) {
+                    monthSeconds += et.diff(st, 'seconds').toObject().seconds;
+                }
+    
+                if (st >= year) {
+                    yearSeconds += et.diff(st, 'seconds').toObject().seconds;
+                } 
+            }
+
+        })
+        
+        var statTimes = {
+            day: secondsToHoursMinutes(daySeconds),
+            week: secondsToHoursMinutes(weekSeconds),
+            month: secondsToHoursMinutes(monthSeconds),
+            year: secondsToHoursMinutes(yearSeconds)
+        }
+
+        console.log("end", statTimes)
+
+        setStatTimes(statTimes)
+    }
+
+    function secondsToHoursMinutes(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const remainingSeconds = seconds % 3600;
+        const minutes = Math.floor(remainingSeconds / 60);
+      
+        return { hours, minutes };
+      }
 
     const loadActivities = async () => {
         setLoading(true);
@@ -46,12 +102,16 @@ function Dashboard(){
                 setCurrentActivity(a.id[0])
             }
 
+            
         } catch (err) {
             setError("Failed to load activities...");
         } finally {
             setLoading(false)
         }
+        calcToday(a.id);
     }
+
+
 
     useEffect(() => {
         loadActivities();
@@ -61,10 +121,9 @@ function Dashboard(){
     return (
         <div className="dashboard">
             <ActivityModal isOpen={isModalOpen} onClose={closeModal} activity={openActivity} />
+            
             <div className="top">
-                
-            <StatusBar loading={loading} currentActivity={currentActivity} stopActivity={stopActivity}/>
-
+                <StatusBar loading={loading} currentActivity={currentActivity} stopActivity={stopActivity} statTimes={statTimes}/>
             </div>
 
             <div className="feed" >
