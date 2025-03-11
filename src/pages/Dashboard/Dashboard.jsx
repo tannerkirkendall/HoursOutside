@@ -47,7 +47,6 @@ function Dashboard(){
         var yearSeconds = 0;
 
         a.forEach(e =>{
-
             var st = luxon.DateTime.fromISO(e.start_time);
             var et = luxon.DateTime.fromISO(e.end_time);
             
@@ -69,7 +68,6 @@ function Dashboard(){
                     yearSeconds += seconds;
                 } 
             }
-
         })
         
         var statTimes = {
@@ -79,8 +77,6 @@ function Dashboard(){
             year: secondsToHoursMinutes(yearSeconds)
         }
 
-        console.log("end", statTimes)
-
         setStatTimes(statTimes)
     }
 
@@ -88,9 +84,8 @@ function Dashboard(){
         const hours = Math.floor(seconds / 3600);
         const remainingSeconds = seconds % 3600;
         const minutes = Math.floor(remainingSeconds / 60);
-      
         return { hours, minutes };
-      }
+    }
 
     const loadActivities = async () => {
         setLoading(true);
@@ -111,7 +106,6 @@ function Dashboard(){
         }
         calcToday(a.id);
     }
-
 
 
     useEffect(() => {
