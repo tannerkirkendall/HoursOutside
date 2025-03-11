@@ -1,8 +1,9 @@
 .fullBar{
-    /* background-color: rgb(160, 211, 255); */
     width: 100%;
-    height: 40px;
+    height: 5vh;
     border-bottom: 1px solid rgb(211, 210, 210);
+    /* box-shadow:0px 0px 0px 1px rgb(211, 210, 210) inset; */
+
     position: fixed;
     top: 0;
     left: 0;
@@ -25,7 +26,6 @@
     padding: 0.5rem 1rem;
     border-radius: 4px;
     color: #e4896d;
-
     transition: color 0.2s;
   }
 

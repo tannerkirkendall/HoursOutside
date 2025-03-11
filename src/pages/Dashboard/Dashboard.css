@@ -1,17 +1,17 @@
 .dashboard{
     margin: auto;
     max-width: 900px;
-    min-width: 450px;
+    min-width: 400px;
 }
 
 .top{
-    height: 15vh;
+    padding-top: 5px;
+    height: 20vh;
     width: 100%;
-    overflow: scroll;
   }
 
   .feed{
-    height: 80vh;
+    height: 85vh;
     overflow: scroll;
 
   }

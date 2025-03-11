@@ -5,7 +5,6 @@
     overflow:hidden;
     justify-content: space-between;
     border-bottom: 3px solid black;
-
   }
 
   .statCols{
@@ -38,8 +37,9 @@
   }
 
   .topMiddle{
-    background-color: rgb(255, 255, 255);
-    padding: 15px;
+    /* background-color: rgb(255, 255, 255); */
+    /* padding: 15px; */
+    align-self: center;
   }
 
   .tl-top {
