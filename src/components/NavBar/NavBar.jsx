@@ -9,7 +9,7 @@ function NavBar(){
                 <div className="innerBar">
                     <Link to="/" className="nav-link">Dashboard</Link>
                     <Link to="/about" className="nav-link">About This Site</Link>
-                    <Link to="/login" className="nav-link">Logout</Link>
+                    <Link to="/login" className="nav-link">Login</Link>
                 </div>
             </div>
         </div>

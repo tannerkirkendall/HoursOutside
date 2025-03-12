@@ -1,31 +1,33 @@
 import { useEffect } from "react";
 import { postLogin } from "../../services/api";
+import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from 'react-router-dom';
+
 
 function Login(){
-    
+    const { login, logout } = useAuth()
+    const navigate = useNavigate();
+
     useEffect(() => {
         const loadLogin = async () => await postLogin("test3@test1.com", "password");
     
         loadLogin();
       }, []);
 
-    const handleSubmit = async (e) => {
-          e.preventDefault()   
-          try {
-                  var utcStartTime = luxon.DateTime.fromISO(startTime)
-                  var utcEndTime = luxon.DateTime.fromISO(endTime)
-                  var a = await patchActivities(utcStartTime, utcEndTime, description, activity.id);
-              } catch (err) {
-              console.log(err)
-              } finally {
-                  onClose()
-              }
-        }
+    const handleLogon = (e) => {
+        login();
+        navigate('/')
+    }
+
+    const handleLogout = (e) => {
+        logout();
+    }
     return (
     
     <div className="login">
         <h2>You must login</h2>
-
+        <button onClick={handleLogon}>Login</button>
+        <button onClick={handleLogout}>Logout</button>
 
     </div>
     );
