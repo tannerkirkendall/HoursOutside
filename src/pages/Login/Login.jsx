@@ -35,6 +35,7 @@ function Login(){
 
     const handleLogon = async (e) => {
         setLoading(true)
+        e.preventDefault()
 
         if (formType==='register' && fullName.length===0){
             setError("Full Name is Required")
@@ -48,13 +49,12 @@ function Login(){
             return;
         }
 
-        if (password.length<6){
-            setError("Password must be at least 6 characters")
+        if (password.length<=6){
+            setError("Password must be at least 7 characters")
             setLoading(false)
             return;
         }
 
-        e.preventDefault()
         if (formType === "register"){
             var r = await signup(username, password);
             if (r.ok){
@@ -84,7 +84,8 @@ function Login(){
         
             <form className="login-container">
                 <h2>Hours Outside</h2>
-                <div className="subtext">A Demo Ruby on Rails + React App</div>
+                <div className="subtext">A Simple Outdoor Activity Tracker <br/>
+                    Built With Ruby on Rails + React</div>
 
                 {formType === "register" &&
                     <div className="input-group">

@@ -135,7 +135,7 @@ export const patchActivities = async (start_time, end_time, description, id) => 
         }
         document.cookie = name + "=" + (value || "")  + expires + "; path=/";
     }
-    function getCookie(name) {
+    export const getCookie = (name) => {
         var nameEQ = name + "=";
         var ca = document.cookie.split(';');
         for(var i=0;i < ca.length;i++) {
@@ -145,6 +145,6 @@ export const patchActivities = async (start_time, end_time, description, id) => 
         }
         return null;
     }
-    function eraseCookie(name) {   
+    export const eraseCookie = (name) => {   
         document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }

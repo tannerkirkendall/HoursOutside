@@ -16,7 +16,7 @@ function NavBar(){
                 <div className="innerBar">
                     <Link to="/" className="nav-link">Dashboard</Link>
                     <Link to="/about" className="nav-link">About This Site</Link>
-                    <span className="nav-link" onClick={handelLogout}>Logout</span>
+                    <span className="nav-link" onClick={handelLogout} to="/login">Logout</span>
                 </div>
             </div>
         </div>
