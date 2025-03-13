@@ -6,15 +6,16 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Login(){
-    const { login, logout } = useAuth()
+    const { login, signup } = useAuth()
     const navigate = useNavigate();
 
-    const [formType, setFormType] = useState('login');
+    const [formType, setFormType] = useState('register');
     const [fullName, setFullName] = useState('');
-    const [username, setUserName] = useState('test3@test1.com');
-    const [password, setPassword] = useState('password');
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+
 
     const swapFormType = () => {
         if (formType === 'register'){
@@ -24,21 +25,54 @@ function Login(){
         }
     }
 
+    const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
+
     const handleLogon = async (e) => {
         setLoading(true)
+
+        if (formType==='register' && fullName.length===0){
+            setError("Full Name is Required")
+            setLoading(false)
+            return;
+        }
+
+        if (!validateEmail(username)){
+            setError("Email must be valid")
+            setLoading(false)
+            return;
+        }
+
+        if (password.length<6){
+            setError("Password must be at least 6 characters")
+            setLoading(false)
+            return;
+        }
+
         e.preventDefault()
         if (formType === "register"){
-            console.log("full", fullName)
-            console.log("username", username)
-            console.log("password", password)
-        } else {
+            var r = await signup(username, password);
+            if (r.ok){
+                console.log("r", r)
+                navigate('/')
+            }
+            else {
+                setError("Email is Aleady Taken")
+            }
+        } 
+        if (formType === "login") {
             var r = await login(username, password);
             if (r.ok){
                 console.log("r", r)
                 navigate('/')
             }
             else {
-                setError("Username or Password is Incorrect")
+                setError("Email or Password is Incorrect")
             }
         }
         
@@ -50,7 +84,7 @@ function Login(){
         
             <form className="login-container">
                 <h2>Hours Outside</h2>
-                <div className="signup-link">A Demo Ruby on Rails + React App</div>
+                <div className="subtext">A Demo Ruby on Rails + React App</div>
 
                 {formType === "register" &&
                     <div className="input-group">

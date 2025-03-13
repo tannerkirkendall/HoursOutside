@@ -1,9 +1,5 @@
 const BASE_URL = "https://starfish-app-xaufy.ondigitalocean.app";
 
-export const postSignup = async () => {
-    
-}
-
 export const postLogin = async (email, password) => {
     
     const myHeaders = new Headers();
@@ -30,6 +26,34 @@ export const postLogin = async (email, password) => {
     })
       .catch((e) => {returnBody = ({status: false, error: e})});
       return returnBody
+}
+
+export const postSignup = async (email, password) => {
+    
+  const myHeaders = new Headers();
+  let returnBody = {};
+  myHeaders.append("Content-Type", "application/json");
+  
+  const raw = JSON.stringify({
+    "user": {
+      "email": email,
+      "password": password
+    }
+  });
+  
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw
+  };
+  
+  await fetch(`${BASE_URL}/signup`, requestOptions)
+    .then((response) => {
+      setCookie('auth', response.headers.get('authorization'), 1);
+      returnBody = ({ok: response.ok, status: response.status, token: response.headers.get('authorization')})
+  })
+    .catch((e) => {returnBody = ({status: false, error: e})});
+    return returnBody
 }
 
 export const getActivities = async () => {

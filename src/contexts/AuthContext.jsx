@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { postLogin } from "../services/api";
+import { postLogin, postSignup } from "../services/api";
 
 const AuthContext = createContext()
 
@@ -19,10 +19,21 @@ export const AuthProvider = ({ children }) => {
     return response;
   }
 
+  const signup = async (email, password) => {
+    var response = await postSignup(email, password);
+    if (response.ok){
+      console.log("pass", response)
+      setAuthenticated(true)
+    }else{
+      console.log("fail", response)
+    }
+    return response;
+  }
+
   const logout = () => setAuthenticated(false)
 
   return (
-    <AuthContext.Provider value={{ authenticated, login, logout }}>
+    <AuthContext.Provider value={{ authenticated, login, logout, signup }}>
       {children}
     </AuthContext.Provider>
   )
