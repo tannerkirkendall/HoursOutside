@@ -21,6 +21,7 @@
     color: #e4896d;
     transition: color 0.2s;
     cursor: pointer;
+    font-weight: 500;
   }
 
   .nav-link:hover {

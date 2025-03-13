@@ -79,13 +79,15 @@ function Login(){
         setLoading(false);
     }
 
+    const buttonText = () => loading ? 'Loading...' : (formType==="register" ? "Sign Up" : "Log In")
+
     return (
     <div className="login-page">
         
             <form className="login-container">
                 <h2>Hours Outside</h2>
                 <div className="subtext">A Simple Outdoor Activity Tracker <br/>
-                    Built With Ruby on Rails + React</div>
+                    Built With Ruby on Rails & React</div>
 
                 {formType === "register" &&
                     <div className="input-group">
@@ -104,7 +106,7 @@ function Login(){
                     <input type="password" id="password" name="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} required />
                 </div>
 
-                <button type="submit" className="login-btn" onClick={handleLogon} disabled={loading}>{formType==="register" ? "Sign Up" : "Log In"}</button>
+                <button type="submit" className="login-btn" onClick={handleLogon} disabled={loading}>{buttonText()}</button>
 
                 {error.length>0 && <div className="error">{error}</div>}
 
