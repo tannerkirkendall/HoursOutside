@@ -7,6 +7,7 @@ export const postSignup = async () => {
 export const postLogin = async (email, password) => {
     
     const myHeaders = new Headers();
+    let returnBody = {};
     myHeaders.append("Content-Type", "application/json");
     
     const raw = JSON.stringify({
@@ -22,12 +23,13 @@ export const postLogin = async (email, password) => {
       body: raw
     };
     
-    fetch(`${BASE_URL}/login`, requestOptions)
+    await fetch(`${BASE_URL}/login`, requestOptions)
       .then((response) => {
-        setCookie('auth', response.headers.get('authorization'), 1)
+        setCookie('auth', response.headers.get('authorization'), 1);
+        returnBody = ({ok: response.ok, status: response.status, token: response.headers.get('authorization')})
     })
-      .then((result) => console.log(result))
-      .catch((error) => console.error(error));
+      .catch((e) => {returnBody = ({status: false, error: e})});
+      return returnBody
 }
 
 export const getActivities = async () => {

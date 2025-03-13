@@ -4,15 +4,18 @@ import About from './pages/About/About'
 import NavBar from './components/NavBar/NavBar'
 import { Routes, Route } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
+import { useAuth } from './contexts/AuthContext'
 
 function App() {
-
+  const {authenticated} = useAuth();
 
   return (
     <>
-      <div className="navMaster">
-        <NavBar className="navBar" />
-      </div>
+      {authenticated && 
+        <div className="navMaster">
+          <NavBar className="navBar" />
+        </div>
+      }
 
       <div className='bodyMaster'>
         <Routes>
@@ -23,9 +26,8 @@ function App() {
             <Route exact path='/about' element={<PrivateRoute/>}>
               <Route exact path='/about' element={<About/>}/>
             </Route>
-            
+
             <Route path="/login" element={<Login />}/>
-            {/* <Route path="/about" element={<About />}/> */}
         </Routes>
       </div>
       

@@ -10,6 +10,7 @@
     padding-top: 5px;
     height: 20dvh;
     width: 100%;
+    min-height: 120px;
   }
 
   .feed{

@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { postLogin } from "../../services/api";
+import './Login.css'
+import { useEffect, useState } from "react";
+// import { postLogin } from "../../services/api";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate } from 'react-router-dom';
 
@@ -8,27 +9,74 @@ function Login(){
     const { login, logout } = useAuth()
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const loadLogin = async () => await postLogin("test3@test1.com", "password");
-    
-        loadLogin();
-      }, []);
+    const [formType, setFormType] = useState('login');
+    const [fullName, setFullName] = useState('');
+    const [username, setUserName] = useState('test3@test1.com');
+    const [password, setPassword] = useState('password');
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const handleLogon = (e) => {
-        login();
-        navigate('/')
+    const swapFormType = () => {
+        if (formType === 'register'){
+            setFormType('login')
+        }else{
+            setFormType('register')
+        }
     }
 
-    const handleLogout = (e) => {
-        logout();
+    const handleLogon = async (e) => {
+        setLoading(true)
+        e.preventDefault()
+        if (formType === "register"){
+            console.log("full", fullName)
+            console.log("username", username)
+            console.log("password", password)
+        } else {
+            var r = await login(username, password);
+            if (r.ok){
+                console.log("r", r)
+                navigate('/')
+            }
+            else {
+                setError("Username or Password is Incorrect")
+            }
+        }
+        
+        setLoading(false);
     }
+
     return (
-    
-    <div className="login">
-        <h2>You must login</h2>
-        <button onClick={handleLogon}>Login</button>
-        <button onClick={handleLogout}>Logout</button>
+    <div className="login-page">
+        
+            <form className="login-container">
+                <h2>Hours Outside</h2>
+                <div className="signup-link">A Demo Ruby on Rails + React App</div>
 
+                {formType === "register" &&
+                    <div className="input-group">
+                        <label htmlFor="fullname">Full Name</label>
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your Full Name" value={fullName} onChange={e => setFullName(e.target.value)} required />
+                    </div> 
+                }
+
+                <div className="input-group">
+                    <label htmlFor="username">E-Mail</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your E-Mail" value={username} onChange={e => setUserName(e.target.value)} required />
+                </div>
+
+                <div className="input-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} required />
+                </div>
+
+                <button type="submit" className="login-btn" onClick={handleLogon} disabled={loading}>{formType==="register" ? "Sign Up" : "Log In"}</button>
+
+                {error.length>0 && <div className="error">{error}</div>}
+
+                {formType === "register" && <p className="signup-link">Already have an account? <a onClick={swapFormType} href="#">Sign in</a></p>}
+                {formType === "login" &&<p className="signup-link">Don't have an account? <a onClick={swapFormType} href="#">Sign up</a></p>}
+
+            </form>
     </div>
     );
 }
