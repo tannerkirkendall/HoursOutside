@@ -34,7 +34,7 @@ function ActivityCard({activity}) {
                 <Circle timeSpan={getTimeSpan(activity.start_time, activity.end_time)} complete={isActivityComplete()} />
             </div>
 
-            <div className="rightBox">
+            <div className="centerBox">
 
                 <div className="activityTime">
                     <span className="activityStartTime">{formatDate(activity.start_time)}</span>
@@ -44,15 +44,9 @@ function ActivityCard({activity}) {
                 </div>
             </div>
 
-
-
-
-            {/* <img src="../../public/avatar.svg"></img>
-            <span>Start Time: {formatDate(activity.start_time)}</span>
-            <span>End Time: {formatDate(activity.end_time)}</span>
-            <span>Description: {activity.description}</span>
-            <span>Activity Id: {activity.id}</span>
-            <span>User Id: {activity.user_id}</span>  */}
+            <div className="rightBox">
+                <span className="material-icons md-16 edit">&#xe3c9;</span>
+            </div>
         </div>
     )
 

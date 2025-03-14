@@ -1,14 +1,21 @@
 .main {
     padding: 10px;
-    margin-bottom: 5px;
+
     border-bottom: 1px solid black;
     overflow: hidden; 
     display: flex;
+    align-content: space-between;
+    cursor: pointer;
+
 }
 
+.main:hover{
+    background-color: rgb(255, 234, 189);
+}
 
-.rightBox {
+.centerBox {
     padding-left: 15px;
+    width: 100%;
 }
 
 .activityStartTime{
@@ -19,3 +26,4 @@
 .activityDesctiption {
     font-weight: 200;
 }
+

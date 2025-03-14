@@ -22,21 +22,12 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    font-size: 20px;
+    font-size: 40px;
     cursor: pointer;
     border: none;
     background: none;
+    color: black;
   }
-
-  /* body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f7fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-} */
 
 .form-container {
     background-color: white;
@@ -67,6 +58,10 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    /* color: rgb(0, 0, 0); */
+    /* background-color: rgb(255, 255, 255); */
+    color-scheme: light;
+
 }
 
 textarea {
@@ -83,6 +78,12 @@ input[type="submit"] {
     width: 100%;
     font-size: 16px;
 }
+
+input[type="submit"]:disabled{
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
 
 input[type="submit"]:hover {
     background-color: #45a049;

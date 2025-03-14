@@ -103,7 +103,7 @@ function Login(){
 
                 <div className="input-group">
                     <label htmlFor="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" value={password} onChange={e => setPassword(e.target.value)} required />
+                    <input type="password" id="password" name="password" placeholder="Enter your Password" value={password} onChange={e => setPassword(e.target.value)} required />
                 </div>
 
                 <button type="submit" className="login-btn" onClick={handleLogon} disabled={loading}>{buttonText()}</button>

@@ -8,9 +8,11 @@ const Modal = ({ isOpen, onClose, activity }) => {
     return null;
   }
 
+  const [loading, setLoading] = useState(false);
   const [startTime, setStartTime] = useState(formatDate(activity.start_time));
   const [endTime, setEndTime] = useState(formatDate(activity.end_time));
   const [description, setDescription] = useState(activity.description);
+  
 
   function formatDate(date){
     if (date === null) return "";
@@ -20,6 +22,7 @@ const Modal = ({ isOpen, onClose, activity }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()   
+    setLoading(true);
     try {
             var utcStartTime = luxon.DateTime.fromISO(startTime)
             var utcEndTime = luxon.DateTime.fromISO(endTime)
@@ -27,9 +30,12 @@ const Modal = ({ isOpen, onClose, activity }) => {
         } catch (err) {
         console.log(err)
         } finally {
-            onClose()
+          setLoading(false)
+          onClose()
         }
   }
+
+  const modalSave = () => loading ? "Loading..." : "Save"
 
   return (
     <div className="modal-overlay">
@@ -57,7 +63,7 @@ const Modal = ({ isOpen, onClose, activity }) => {
             </div>
 
             <div className="form-group">
-                <input type="submit" value="Submit"/>
+                <input type="submit" value={modalSave()} disabled={loading}/>
             </div>
         </form>
 
