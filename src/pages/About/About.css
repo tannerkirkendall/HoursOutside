@@ -1,0 +1,15 @@
+.container {
+    max-width: 900px;
+    width: 100%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+}
